@@ -276,6 +276,13 @@ class ShipmentIn:
 class ShipmentOut:
     __name__ = 'stock.shipment.out'
 
+    def _get_inventory_move(self, move):
+        inventory_move = super(ShipmentOut, self)._get_inventory_move(move)
+        if move.use_second_uom:
+            inventory_move.second_quantity = move.second_quantity
+            inventory_move.second_uom = move.second_uom
+        return inventory_move
+
     @classmethod
     def _sync_inventory_to_outgoing(cls, shipments):
         pool = Pool()
