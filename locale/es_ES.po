@@ -1,0 +1,121 @@
+# 
+msgid ""
+msgstr "Content-Type: text/plain; charset=utf-8\n"
+
+msgctxt "error:product.product:"
+msgid ""
+"The Second UoM must be set on template because product \"%s\" is set to Use "
+"Second UoM."
+msgstr ""
+"Se debe definir la Segunda UdM en la plantilla porque el producto \"%s\" "
+"está marcado como que Usa segunda UdM."
+
+msgctxt "error:stock.move:"
+msgid "The Second UoM Quantity is required for move of product \"%s\"."
+msgstr ""
+"La Cantidad segunda UdM es obligatoria para el movimiento del producto "
+"\"%s\"."
+
+msgctxt "error:stock.move:"
+msgid "The Second UoM Quantity of move \"%s\" must be positive."
+msgstr "La Candidad segunda UdM del movimiento \"%s\" debe ser positiva."
+
+msgctxt "field:product.product,second_forecast_quantity:"
+msgid "Second UoM Forecast Quantity"
+msgstr "Cantidad prevista segunda UdM"
+
+msgctxt "field:product.product,second_quantity:"
+msgid "Second UoM Quantity"
+msgstr "Cantidad segunda UdM"
+
+msgctxt "field:product.product,second_uom:"
+msgid "Second UoM"
+msgstr "Segunda UdM"
+
+msgctxt "field:product.product,use_second_uom:"
+msgid "Use Second UoM"
+msgstr "Usa segunda UdM"
+
+msgctxt "field:product.template,second_forecast_quantity:"
+msgid "Second UoM Forecast Quantity"
+msgstr "Cantidad prevista segunda UdM"
+
+msgctxt "field:product.template,second_quantity:"
+msgid "Second UoM Quantity"
+msgstr "Cantidad segunda UdM"
+
+msgctxt "field:product.template,second_uom:"
+msgid "Second UoM"
+msgstr "Segunda UdM"
+
+msgctxt "field:product.template,use_second_uom:"
+msgid "Use Second UOM"
+msgstr "Usa segunda UdM"
+
+msgctxt "field:stock.inventory.line,second_expected_quantity:"
+msgid "Second UoM Expected Quantity"
+msgstr "Cantidad esperada segunda UdM"
+
+msgctxt "field:stock.inventory.line,second_quantity:"
+msgid "Second Quantity"
+msgstr "Segunda cantidad"
+
+msgctxt "field:stock.inventory.line,second_unit_digits:"
+msgid "Second Unit Digits"
+msgstr "Dígitos segunda UdM"
+
+msgctxt "field:stock.inventory.line,second_uom:"
+msgid "Second UoM"
+msgstr "Segunda UdM"
+
+msgctxt "field:stock.inventory.line,use_second_uom:"
+msgid "Use Second UoM"
+msgstr "Usa segunda UdM"
+
+msgctxt "field:stock.lot,second_forecast_quantity:"
+msgid "Second UoM Forecast Quantity"
+msgstr "Cantidad prevista segunda UdM"
+
+msgctxt "field:stock.lot,second_quantity:"
+msgid "Second UoM Quantity"
+msgstr "Cantidad segunda UdM"
+
+msgctxt "field:stock.lot,second_uom:"
+msgid "Second UoM"
+msgstr "Segunda UdM"
+
+msgctxt "field:stock.lot,use_second_uom:"
+msgid "Use Second UOM"
+msgstr "Usa segunda UdM"
+
+msgctxt "field:stock.move,product_second_uom_category:"
+msgid "Product Second UoM Category"
+msgstr "Categoria segunda UdM del producto"
+
+msgctxt "field:stock.move,second_internal_quantity:"
+msgid "Second Internal Quantity"
+msgstr "Segunda cantidad interna"
+
+msgctxt "field:stock.move,second_quantity:"
+msgid "Second Quantity"
+msgstr "Segunda cantidad"
+
+msgctxt "field:stock.move,second_unit_digits:"
+msgid "Second Unit Digits"
+msgstr "Dígitos segunda UdM"
+
+msgctxt "field:stock.move,second_uom:"
+msgid "Second UoM"
+msgstr "Segunda UdM"
+
+msgctxt "field:stock.move,use_second_uom:"
+msgid "Use Second UoM"
+msgstr "Usa segunda UdM"
+
+msgctxt "field:stock.period.cache,second_internal_quantity:"
+msgid "Second Internal Quantity"
+msgstr "Segunda cantidad interna"
+
+msgctxt "field:stock.period.cache.lot,second_internal_quantity:"
+msgid "Second Internal Quantity"
+msgstr "Segunda cantidad interna"

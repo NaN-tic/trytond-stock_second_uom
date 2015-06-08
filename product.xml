@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<!-- The COPYRIGHT file at the top level of this repository contains the full
+     copyright notices and license terms. -->
+<tryton>
+    <data>
+        <!-- product.template -->
+        <record model="ir.ui.view" id="template_view_form">
+            <field name="model">product.template</field>
+            <field name="type">form</field>
+            <field name="inherit" ref="product.template_view_form"/>
+            <field name="name">template_form</field>
+        </record>
+
+        <record model="ir.ui.view" id="template_view_tree">
+            <field name="model">product.template</field>
+            <field name="type">tree</field>
+            <field name="inherit" ref="product.template_view_tree"/>
+            <field name="name">template_tree</field>
+        </record>
+
+        <!-- product.product -->
+        <record model="ir.ui.view" id="product_view_form">
+            <field name="model">product.product</field>
+            <field name="type">form</field>
+            <field name="inherit" ref="product.product_view_form"/>
+            <field name="name">product_form</field>
+        </record>
+
+        <record model="ir.ui.view" id="product_view_tree">
+            <field name="model">product.product</field>
+            <field name="type">tree</field>
+            <field name="inherit" ref="product.product_view_tree"/>
+            <field name="name">product_tree</field>
+        </record>
+
+        <record model="ir.ui.view" id="product_view_tree_qty">
+            <field name="model">product.product</field>
+            <field name="type">tree</field>
+            <field name="inherit" ref="stock.product_view_tree_qty"/>
+            <field name="name">product_tree_qty</field>
+        </record>
+    </data>
+</tryton>
