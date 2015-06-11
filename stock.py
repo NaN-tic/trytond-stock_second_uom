@@ -11,7 +11,7 @@ from trytond.pyson import Eval, In
 from trytond.transaction import Transaction
 
 __all__ = ['Lot', 'Move', 'ShipmentIn', 'ShipmentOut', 'ShipmentOutReturn',
-    'Period', 'PeriodCache', 'PeriodCacheLot', 'Inventory', 'InventoryLine']
+    'PeriodCache', 'PeriodCacheLot', 'Inventory', 'InventoryLine']
 __metaclass__ = PoolMeta
 
 STATES = {
@@ -324,51 +324,80 @@ class ShipmentOutReturn:
         return move
 
 
-class Period:
-    __name__ = 'stock.period'
-
-    def get_cache_vals(self, Cache, grouping, locations):
-        pool = Pool()
-        Product = pool.get('product.product')
-
-        cache_vlist = super(Period, self).get_cache_vals(Cache, grouping,
-            locations)
-        if grouping not in [('product',), ('product', 'lot')]:
-            return cache_vlist
-
-        cache_vals_by_key = {}
-        for values in cache_vlist:
-            key = (values['location'], ) + tuple([values[f] for f in grouping])
-            cache_vals_by_key[key] = values
-
-        cache_vlist = []
-        with Transaction().set_context(
-                stock_date_end=self.date,
-                stock_date_start=None,
-                stock_assign=False,
-                forecast=False,
-                stock_destinations=None,
-                second_uom=True,
-                ):
-            pbl = Product.products_by_location(
-                [l.id for l in locations], grouping=grouping)
-        for key, quantity in pbl.iteritems():
-            values = cache_vals_by_key[key]
-            values['second_internal_quantity'] = quantity
-            cache_vlist.append(values)
-        return cache_vlist
-
-
 class PeriodCache:
     __name__ = 'stock.period.cache'
     second_internal_quantity = fields.Float('Second Internal Quantity',
         readonly=True)
+
+    @classmethod
+    def create(cls, vlist):
+        pool = Pool()
+        Period = pool.get('stock.period')
+        Product = pool.get('product.product')
+
+        vlist_by_period_location = {}
+        for values in vlist:
+            vlist_by_period_location.setdefault(values['period'], {})\
+                .setdefault(values['location'], []).append(values)
+
+        vlist = []
+        for period_id, vlist_by_location in \
+                vlist_by_period_location.iteritems():
+            period = Period(period_id)
+            with Transaction().set_context(
+                    stock_date_end=period.date,
+                    stock_date_start=None,
+                    stock_assign=False,
+                    forecast=False,
+                    stock_destinations=None,
+                    second_uom=True,
+                    ):
+                pbl = Product.products_by_location(
+                    vlist_by_location.keys(), grouping=('product',))
+            for location_id, location_vlist in vlist_by_location.iteritems():
+                for values in location_vlist:
+                    key = (location_id, values['product'])
+                    values['second_internal_quantity'] = pbl.get(key, 0.0)
+                    vlist.append(values)
+        return super(PeriodCache, cls).create(vlist)
 
 
 class PeriodCacheLot:
     __name__ = 'stock.period.cache.lot'
     second_internal_quantity = fields.Float('Second Internal Quantity',
         readonly=True)
+
+    @classmethod
+    def create(cls, vlist):
+        pool = Pool()
+        Period = pool.get('stock.period')
+        Product = pool.get('product.product')
+
+        vlist_by_period_location = {}
+        for values in vlist:
+            vlist_by_period_location.setdefault(values['period'], {})\
+                .setdefault(values['location'], []).append(values)
+
+        vlist = []
+        for period_id, vlist_by_location in \
+                vlist_by_period_location.iteritems():
+            period = Period(period_id)
+            with Transaction().set_context(
+                    stock_date_end=period.date,
+                    stock_date_start=None,
+                    stock_assign=False,
+                    forecast=False,
+                    stock_destinations=None,
+                    second_uom=True,
+                    ):
+                pbl = Product.products_by_location(
+                    vlist_by_location.keys(), grouping=('product', 'lot'))
+            for location_id, location_vlist in vlist_by_location.iteritems():
+                for values in location_vlist:
+                    key = (location_id, values['product'], values['lot'])
+                    values['second_internal_quantity'] = pbl.get(key, 0.0)
+                    vlist.append(values)
+        return super(PeriodCacheLot, cls).create(vlist)
 
 
 class Inventory:

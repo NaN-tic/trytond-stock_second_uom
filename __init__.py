@@ -4,6 +4,7 @@ from trytond.pool import Pool
 from .product import *
 from .stock import *
 
+
 def register():
     Pool.register(
         Template,
@@ -13,7 +14,6 @@ def register():
         ShipmentIn,
         ShipmentOut,
         ShipmentOutReturn,
-        Period,
         PeriodCache,
         PeriodCacheLot,
         Inventory,
