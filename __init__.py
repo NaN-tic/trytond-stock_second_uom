@@ -3,6 +3,8 @@
 from trytond.pool import Pool
 from .product import *
 from .stock import *
+from .sale import *
+from .purchase import *
 
 
 def register():
@@ -18,4 +20,9 @@ def register():
         PeriodCacheLot,
         Inventory,
         InventoryLine,
+        SaleLine,
+        PurchaseLine,
         module='stock_second_uom', type_='model')
+    Pool.register(
+        ReturnSale,
+        module='stock_second_uom', type_='wizard')

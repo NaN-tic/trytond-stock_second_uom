@@ -51,6 +51,46 @@ msgctxt "field:product.template,use_second_uom:"
 msgid "Use Second UOM"
 msgstr "Utilitza segona UdM"
 
+msgctxt "field:purchase.line,product_second_uom_category:"
+msgid "Product Second UoM Category"
+msgstr "Categoria segona UdM del producte"
+
+msgctxt "field:purchase.line,second_quantity:"
+msgid "Second Quantity"
+msgstr "Segona quantitat"
+
+msgctxt "field:purchase.line,second_unit:"
+msgid "Second Unit"
+msgstr "Segona unitat"
+
+msgctxt "field:purchase.line,second_unit_digits:"
+msgid "Second Unit Digits"
+msgstr "Dígits segona UdM"
+
+msgctxt "field:purchase.line,use_second_unit:"
+msgid "Use Second Unit"
+msgstr "Utilitza segona unitat"
+
+msgctxt "field:sale.line,product_second_uom_category:"
+msgid "Product Second UoM Category"
+msgstr "Categoria segona UdM del producte"
+
+msgctxt "field:sale.line,second_quantity:"
+msgid "Second Quantity"
+msgstr "Segona quantitat"
+
+msgctxt "field:sale.line,second_unit:"
+msgid "Second Unit"
+msgstr "Segona unitat"
+
+msgctxt "field:sale.line,second_unit_digits:"
+msgid "Second Unit Digits"
+msgstr "Dígits segona UdM"
+
+msgctxt "field:sale.line,use_second_unit:"
+msgid "Use Second Unit"
+msgstr "Utilitza segona unitat"
+
 msgctxt "field:stock.inventory.line,second_expected_quantity:"
 msgid "Second UoM Expected Quantity"
 msgstr "Quantitat esperada segona UdM"
