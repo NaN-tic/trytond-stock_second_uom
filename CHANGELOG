@@ -1,3 +1,4 @@
+* Don't allow to modify the second UoM if product has moves
 * Allow to sale and purchase goods indicating second uom (extra depends)
 * Adapt to latest patched version of stock module
 

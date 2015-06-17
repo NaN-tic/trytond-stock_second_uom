@@ -36,6 +36,11 @@ class Template:
         if hasattr(cls, 'main_products'):
             cls.on_change_with_use_second_uom.depends.add('main_products')
             cls.on_change_with_use_second_uom.depends.add('raw_products')
+        cls._error_messages.update({
+                'change_second_uom': ('You cannot change the second uom for '
+                    'a product which is associated to stock moves.'),
+                })
+        cls._modify_no_move.append(('second_uom', 'change_second_uom'))
 
     @fields.depends('products')
     def on_change_with_use_second_uom(self, name=None):
