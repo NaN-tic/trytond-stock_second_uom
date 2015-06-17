@@ -412,9 +412,9 @@ class Inventory:
         super(Inventory, cls).complete_lines(inventories)
 
         grouping = cls.grouping()
-
         to_create = []
         for inventory in inventories:
+            # Compute product second quantities
             with Transaction().set_context(
                     stock_date_end=inventory.date,
                     second_uom=True):
@@ -422,50 +422,29 @@ class Inventory:
                     [inventory.location.id], grouping=grouping)
 
             # Index some data
-            product2uom = {}
-            product2second_uom = {}
             product2type = {}
             product2consumable = {}
             for product in Product.browse([line[1] for line in pbl]):
                 if not product.use_second_uom:
                     continue
-                product2uom[product.id] = product.default_uom.id
-                product2second_uom[product.id] = product.second_uom.id
                 product2type[product.id] = product.type
                 product2consumable[product.id] = product.consumable
-
-            product_second_qty = {}
-            for key, second_qty in pbl.iteritems():
-                if key[1] not in product2second_uom:
-                    continue
-                product_second_qty[tuple(key[1:])] = (
-                    second_qty,
-                    product2second_uom[key[1]],
-                    product2uom[key[1]])
 
             # Update existing lines
             to_write = []
             for line in inventory.lines:
                 if not line.product.use_second_uom:
                     continue
-                key = tuple([int(x) if x != None else x
-                    for x in line.unique_key])
-                if key in product_second_qty:
-                    second_qty, second_uom_id, _ = (
-                        product_second_qty.pop(key))
-                elif line.product.id in product2second_uom:
-                    second_qty = 0.0
-                    second_uom_id = product2second_uom[line.product.id]
+                key = (inventory.location.id,) + line.unique_key
+                if key in pbl:
+                    second_qty = pbl.pop(key)
                 else:
                     second_qty = 0.0
-                    second_uom_id = line.product.second_uom.id
-                if ((line.second_quantity == line.second_expected_quantity
-                            == second_qty)
-                        and line.second_uom.id == second_uom_id):
+                if (line.second_quantity == line.second_expected_quantity
+                            == second_qty):
                     continue
                 values = {
                     'second_expected_quantity': second_qty,
-                    'second_uom': second_uom_id,
                     }
                 if line.second_quantity == line.second_expected_quantity:
                     values['second_quantity'] = max(second_qty, 0.0)
@@ -474,20 +453,18 @@ class Inventory:
                 Line.write(*to_write)
 
             # Create lines if needed
-            for key in product_second_qty:
-                product_id = key[0]
+            for key, second_qty in pbl.iteritems():
+                product_id = key[grouping.index('product') + 1]
+                if not second_qty:
+                    continue
                 if (product2type[product_id] != 'goods'
                         or product2consumable[product_id]):
                     continue
-                second_qty, second_uom_id, uom_id = product_second_qty[key]
-                if not second_qty:
-                    continue
-                kwargs = dict((f, key[i])
-                    for i, f in enumerate(grouping[1:], 1))
-                values = Line.create_values4complete(product_id, inventory,
-                    0., uom_id, **kwargs)
+
+                values = Line.create_values4complete(inventory, 0.)
+                for i, fname in enumerate(grouping, 1):
+                    values[fname] = key[i]
                 values['second_expected_quantity'] = second_qty
-                values['second_uom'] = second_uom_id
                 values['second_quantity'] = max(second_qty, 0.0)
                 to_create.append(values)
         if to_create:
@@ -595,9 +572,8 @@ class InventoryLine:
             )
 
     @classmethod
-    def create_values4complete(cls, product_id, inventory, quantity, uom_id,
-            **kwargs):
+    def create_values4complete(cls, inventory, quantity):
         values = super(InventoryLine, cls).create_values4complete(
-            product_id, inventory, quantity, uom_id, **kwargs)
+            inventory, quantity)
         values['second_quantity'] = 0.
         return values
