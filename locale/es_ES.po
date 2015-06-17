@@ -10,6 +10,13 @@ msgstr ""
 "Se debe definir la Segunda UdM en la plantilla porque el producto \"%s\" "
 "está marcado como que Usa segunda UdM."
 
+msgctxt "error:product.template:"
+msgid ""
+"You cannot change the second uom for a product which is associated to stock "
+"moves."
+msgstr ""
+"No puede cambiar la segunda UdM de un producto con movimientos de stock."
+
 msgctxt "error:stock.move:"
 msgid "The Second UoM Quantity is required for move of product \"%s\"."
 msgstr ""
@@ -35,6 +42,14 @@ msgstr "Segunda UdM"
 msgctxt "field:product.product,use_second_uom:"
 msgid "Use Second UoM"
 msgstr "Usa segunda UdM"
+
+msgctxt "field:product.template,external_owners:"
+msgid "External Owners"
+msgstr "Propietaris externos"
+
+msgctxt "field:product.template,may_belong_to_party:"
+msgid "May belong to party"
+msgstr "Puede pertenecer a un tercero"
 
 msgctxt "field:product.template,second_forecast_quantity:"
 msgid "Second UoM Forecast Quantity"
